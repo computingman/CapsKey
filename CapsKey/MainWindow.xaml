@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:CapsKey"
         xmlns:toggle="clr-namespace:ToggleSwitch;assembly=ToggleSwitch"
         mc:Ignorable="d"
-        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
-        Title="CapsKey" Height="150" Width="150">
+        WindowStyle="ToolWindow" Background="#1E1E1E" 
+        Title="Caps" Height="50" Width="96">
     <Grid>
         <toggle:HorizontalToggleSwitch x:Name="ToggleSwitch" IsChecked="{Binding IsCapsActive, Mode=TwoWay}">
             <toggle:HorizontalToggleSwitch.UncheckedContent>

@@ -1,11 +1,10 @@
-﻿using System.ComponentModel;
-using CapsKey.Model;
+﻿using CapsKey.Model;
 using CapsKey.Helpers;
 using System.Windows.Forms;
 
 namespace CapsKey
 {
-    internal class MainSupervisor
+    public class MainSupervisor
     {
         private MainModel _model;
         private MainWindow _view;
@@ -18,22 +17,22 @@ namespace CapsKey
 
             _view.DataContext = model;
 
-            _model.PropertyChanged += OnModelPropertyChanged;
+            _model.CapsStateChanged += OnModelCapsStateChanged;
 
             _keyboardHook = keyboardHook;
             _keyboardHook.HookedKeys.Add(Keys.CapsLock);
             _keyboardHook.KeyUp += OnKeyUp;
 
-            _model.IsCapsActive = KeyboardHelper.IsCapsKeyLocked();
+            _model.SetCapsState(KeyboardHelper.IsCapsKeyLocked(), CapsStateSource.CapsKey);
         }
 
-        private void OnModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void OnModelCapsStateChanged(object source, CapsStateChangeEventArgs e)
         {
-            if (e.PropertyName == nameof(_model.IsCapsActive))
+            if (e.Source != CapsStateSource.CapsKey)
             {
-                // The Caps Lock state has been toggled. 
-                // Keep the keyboard in-sync (if it's not already, i.e. if the user toggled the state via the GUI)...
-                KeyboardHelper.SetCapsLockState(_model.IsCapsActive);
+                // The Caps Lock state has been toggled by the user. 
+                // Keep the keyboard in-sync.
+                KeyboardHelper.SetCapsLockState(e.IsCapsActive);
             }
         }
 
@@ -41,7 +40,7 @@ namespace CapsKey
         {
             if (e.KeyCode == Keys.CapsLock)
             {
-                _model.IsCapsActive = KeyboardHelper.IsCapsKeyLocked();
+                _model.SetCapsState(KeyboardHelper.IsCapsKeyLocked(), CapsStateSource.CapsKey);
             }
         }
 

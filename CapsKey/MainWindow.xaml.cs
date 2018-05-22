@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CapsKey.Properties;
+using System;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Point = System.Drawing.Point;
 
 namespace CapsKey
 {
@@ -23,6 +13,46 @@ namespace CapsKey
         public MainWindow()
         {
             InitializeComponent();
+
+            SetStartupLocation();
+
+            LocationChanged += OnWindowLocationChanged;
+        }
+
+        private void SetStartupLocation()
+        {
+            WindowStartupLocation = WindowStartupLocation.Manual;
+
+            Point location = Settings.Default.MainWindowLocation;
+
+            Left = location.X;
+            Top = location.Y;
+
+            if (!IsWindowLocationOnScreen())
+            {
+                // The previously-saved location is now off-screen (e.g. the number of monitors or the monitor resolution was reduced).
+                Left = 0;
+                Top = 0;
+            }
+        }
+
+        private void OnWindowLocationChanged(object sender, EventArgs e)
+        {
+            if (!IsWindowLocationOnScreen())
+                return;
+
+            Settings.Default.MainWindowLocation = new Point((int)Left, (int)Top);
+            Settings.Default.Save();
+        }
+
+        /// <returns>True if the window is positioned in a visible location,
+        /// or False if the window is off-screen (e.g. due to being minimised or at a location on a detached monitor).</returns>
+        private bool IsWindowLocationOnScreen()
+        {
+            return (Left >= SystemParameters.VirtualScreenLeft
+                && Top >= SystemParameters.VirtualScreenTop
+                && Left < SystemParameters.VirtualScreenLeft + SystemParameters.VirtualScreenWidth
+                && Top < SystemParameters.VirtualScreenTop + SystemParameters.VirtualScreenHeight);
         }
     }
 }
