@@ -41,8 +41,12 @@ namespace CapsKey
             if (!IsWindowLocationOnScreen())
                 return;
 
-            Settings.Default.MainWindowLocation = new Point((int)Left, (int)Top);
-            Settings.Default.Save();
+            var newLocation = new Point((int)Left, (int)Top);
+            if (Settings.Default.MainWindowLocation != newLocation)
+            {
+                Settings.Default.MainWindowLocation = newLocation;
+                Settings.Default.Save();
+            }
         }
 
         /// <returns>True if the window is positioned in a visible location,
@@ -53,6 +57,11 @@ namespace CapsKey
                 && Top >= SystemParameters.VirtualScreenTop
                 && Left < SystemParameters.VirtualScreenLeft + SystemParameters.VirtualScreenWidth
                 && Top < SystemParameters.VirtualScreenTop + SystemParameters.VirtualScreenHeight);
+        }
+
+        private void OnWindowClosed(object sender, EventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }

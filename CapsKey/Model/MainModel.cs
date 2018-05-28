@@ -24,6 +24,17 @@ namespace CapsKey.Model
                 CapsStateChanged?.Invoke(this, new CapsStateChangeEventArgs(value, source));
             }
         }
+
+        private RelayCommand _settingsPressed;
+        public RelayCommand SettingsPressed
+        {
+            get { return _settingsPressed; }
+            set
+            {
+                _settingsPressed = value;
+                RaisePropertyChanged();
+            }
+        }
     }
 
     public class CapsStateChangeEventArgs : EventArgs

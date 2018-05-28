@@ -6,9 +6,15 @@
         xmlns:local="clr-namespace:CapsKey"
         xmlns:toggle="clr-namespace:ToggleSwitch;assembly=ToggleSwitch"
         mc:Ignorable="d"
+        Closed="OnWindowClosed"
         WindowStyle="ToolWindow" Background="#1E1E1E" 
-        Title="Caps" Height="50" Width="96">
+        Title="Caps" Height="80" Width="96">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
         <toggle:HorizontalToggleSwitch x:Name="ToggleSwitch" IsChecked="{Binding IsCapsActive, Mode=TwoWay}">
             <toggle:HorizontalToggleSwitch.UncheckedContent>
                 <Grid>
@@ -20,5 +26,8 @@
                 <Path Fill="White" Stretch="UniformToFill" Data="M 21.7,52.2 L 74.4,0 L 74.4,18.667 L 22,70.708 L 0.,49 L 0,29.8 L 21.7,52.2 Z" />
             </toggle:HorizontalToggleSwitch.CheckedContent>
         </toggle:HorizontalToggleSwitch>
+
+        <!-- ToDo: move settings button to title bar? -->
+        <Button x:Name="SettingsButton" Command="{Binding SettingsPressed}" Grid.Row="1">Settings</Button>
     </Grid>
 </Window>

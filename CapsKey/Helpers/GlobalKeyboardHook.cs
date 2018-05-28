@@ -1,3 +1,4 @@
+using CapsKey.Properties;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -88,10 +89,20 @@ namespace CapsKey.Helpers
 			hhook = SetWindowsHookEx(WH_KEYBOARD_LL, _callback, hInstance, 0);
 		}
 
-		/// <summary>
-		/// Uninstalls the global hook
-		/// </summary>
-		public void Unhook()
+        public void HookShortcutKey(Keys shortcutKey)
+        {
+            HookedKeys.RemoveAll(key => key != Keys.CapsLock);
+            
+            if (shortcutKey != Keys.None)
+            {
+                HookedKeys.Add(shortcutKey);
+            }
+        }
+
+        /// <summary>
+        /// Uninstalls the global hook
+        /// </summary>
+        public void Unhook()
         {
 			UnhookWindowsHookEx(hhook);
 		}

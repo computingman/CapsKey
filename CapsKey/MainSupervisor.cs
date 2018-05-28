@@ -10,7 +10,9 @@ namespace CapsKey
         private MainWindow _view;
         private GlobalKeyboardHook _keyboardHook;
 
-        public MainSupervisor(MainModel model, MainWindow view, GlobalKeyboardHook keyboardHook)
+        private SettingsController _settings;
+
+        public MainSupervisor(MainModel model, MainWindow view, GlobalKeyboardHook keyboardHook, SettingsController settings)
         {
             _model = model;
             _view = view;
@@ -20,10 +22,12 @@ namespace CapsKey
             _model.CapsStateChanged += OnModelCapsStateChanged;
 
             _keyboardHook = keyboardHook;
-            _keyboardHook.HookedKeys.Add(Keys.CapsLock);
             _keyboardHook.KeyUp += OnKeyUp;
 
             _model.SetCapsState(KeyboardHelper.IsCapsKeyLocked(), CapsStateSource.CapsKey);
+
+            _settings = settings;
+            _model.SettingsPressed = new RelayCommand(OnSettingsPressed);
         }
 
         private void OnModelCapsStateChanged(object source, CapsStateChangeEventArgs e)
@@ -42,6 +46,15 @@ namespace CapsKey
             {
                 _model.SetCapsState(KeyboardHelper.IsCapsKeyLocked(), CapsStateSource.CapsKey);
             }
+            else if (e.KeyCode == _settings.Model.GlobalShortcutKey)
+            {
+                _model.SetCapsState(!_model.IsCapsActive, CapsStateSource.ShortcutKey);
+            }
+        }
+
+        private void OnSettingsPressed()
+        {
+            _settings.Show();
         }
 
         public void Show()

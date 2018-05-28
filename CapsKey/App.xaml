@@ -3,6 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:CapsKey">
     <Application.Resources>
-         
+        <Thickness x:Key="CommonMargin" Left="5" Right="5" Top="5" Bottom="5"/>
+        
+        <Style TargetType="{x:Type ComboBox}">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="{StaticResource CommonMargin}"/>
+        </Style>
+
+        <Style TargetType="{x:Type CheckBox}">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="{StaticResource CommonMargin}"/>
+        </Style>
     </Application.Resources>
 </Application>
