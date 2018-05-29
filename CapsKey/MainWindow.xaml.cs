@@ -41,6 +41,7 @@ namespace CapsKey
             if (!IsWindowLocationOnScreen())
                 return;
 
+            // ToDo: only save & log last location when dragging...
             var newLocation = new Point((int)Left, (int)Top);
             if (Settings.Default.MainWindowLocation != newLocation)
             {

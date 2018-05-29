@@ -94,5 +94,23 @@ namespace CapsKey.Properties {
                 this["UseShortcutKey"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int CapsStateRetryAttempts {
+            get {
+                return ((int)(this["CapsStateRetryAttempts"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("30")]
+        public int CapsStateCheckDelay_ms {
+            get {
+                return ((int)(this["CapsStateCheckDelay_ms"]));
+            }
+        }
     }
 }

@@ -34,13 +34,14 @@ namespace CapsKey
 
             var keyboardHook = new GlobalKeyboardHook();
 
+            var mainModel = new MainModel();
+            var mainWindow = new MainWindow();
+
             var settingsModel = new SettingsModel();
             var settingsView = new SettingsWindow();
-            var settingsController = new SettingsController(settingsView, settingsModel, keyboardHook);
+            var settingsController = new SettingsController(settingsView, settingsModel, keyboardHook, mainWindow);
 
-            var model = new MainModel();
-            var view = new MainWindow();
-            var controller = new MainSupervisor(model, view, keyboardHook, settingsController);
+            var controller = new MainSupervisor(mainModel, mainWindow, keyboardHook, settingsController);
             controller.Show();
         }
 

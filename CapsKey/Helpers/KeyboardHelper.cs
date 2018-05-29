@@ -1,28 +1,76 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using log4net;
+using System.Threading.Tasks;
+using CapsKey.Properties;
 
 namespace CapsKey.Helpers
 {
     public class KeyboardHelper
     {
+        private static ILog _log = LogManager.GetLogger(typeof(KeyboardHelper));
+
         [DllImport("user32.dll")]
         static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
 
+        private static object _pressInProgressLock = new object();
         private static bool? _isCapsLocking;
 
         public static bool IsCapsKeyLocked()
         {
-            return _isCapsLocking ?? Control.IsKeyLocked(Keys.CapsLock);
+            return _isCapsLocking ?? IsCapsKeyLockedDirect();
         }
 
-        public static void SetCapsLockState(bool isLocked)
+        private static bool IsCapsKeyLockedDirect()
         {
-            if (IsCapsKeyLocked() != isLocked)
+            return Control.IsKeyLocked(Keys.CapsLock);
+        }
+
+        public static void SetCapsLockState(bool desiredLockState, int retryCount = 0)
+        {
+            if (IsCapsKeyLockedDirect() != desiredLockState)
             {
-                _isCapsLocking = isLocked;
-                PressCapsLockKey();
-                _isCapsLocking = null;
+                lock (_pressInProgressLock)
+                {
+                    if (IsCapsKeyLockedDirect() != desiredLockState)
+                    {
+                        _isCapsLocking = desiredLockState;
+
+                        PressCapsLockKey();
+
+                        Task.Delay(Settings.Default.CapsStateCheckDelay_ms);
+
+                        if (IsCapsKeyLockedDirect() == desiredLockState)
+                        {
+                            _log.Debug("Caps set " + (desiredLockState ? "locked" : "unlocked"));
+                            _isCapsLocking = null;
+                            return;
+                        }
+                        else
+                        {
+                            _log.Warn($"Failed attempt {++retryCount} to set Caps {(desiredLockState ? "locked" : "unlocked")}");
+                            if (retryCount <= Settings.Default.CapsStateRetryAttempts)
+                            {
+                                Task.Run(() => SetCapsLockState(desiredLockState, retryCount));
+                            }
+                            else
+                            {
+                                _isCapsLocking = null;  // Giving up after last failed retry.
+                            }
+                            return;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                _log.Debug("Caps is " + (desiredLockState ? "locked" : "unlocked"));
+
+                if (retryCount > 0)
+                {
+                    _isCapsLocking = null;
+                }
             }
         }
 

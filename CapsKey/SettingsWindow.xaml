@@ -4,19 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CapsKey"
-        xmlns:conv="clr-namespace:CapsKey.Converters"
         mc:Ignorable="d"
-        Title="Caps Key Settings" Height="300" Width="300">
+        Title="Caps Key Settings" Height="200" Width="300">
     <StackPanel Orientation="Vertical">
-        <!--<Grid.Resources>
-            <conv:ShortcutKeyToStringConverter x:Key="ShortcutKeyToStringConverter"/>
-        </Grid.Resources>-->
-
+        
         <DockPanel>
             <CheckBox IsChecked="{Binding UseShortcutKey, Mode=TwoWay}">Shortcut:</CheckBox>
             <ComboBox ItemsSource="{Binding AllKeys}" SelectedItem="{Binding SelectedKey, Mode=TwoWay}" IsEnabled="{Binding UseShortcutKey}"/>
         </DockPanel>
 
         <CheckBox IsChecked="{Binding StartWithWindows, Mode=TwoWay}">Start with Windows</CheckBox>
+
+        <CheckBox IsChecked="{Binding AlwaysOnTop, Mode=TwoWay}">Keep on top of other windows</CheckBox>
+
+        <CheckBox IsChecked="{Binding SuppressCapsKey, Mode=TwoWay}">Suppress CapsLock key presses</CheckBox>
     </StackPanel>
 </Window>

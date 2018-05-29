@@ -3,9 +3,7 @@ using CapsKey.Helpers;
 using System.Windows.Forms;
 using System;
 using System.ComponentModel;
-using System.Collections.ObjectModel;
 using log4net;
-using CapsKey.Properties;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,17 +16,24 @@ namespace CapsKey
         private SettingsWindow _view;
         private GlobalKeyboardHook _keyboardHook;
 
+        private MainWindow _mainWindow;
+
         public SettingsModel Model { get; private set; }
 
-        public SettingsController(SettingsWindow view, SettingsModel model, GlobalKeyboardHook keyboardHook)
+        public SettingsController(SettingsWindow view, SettingsModel model, GlobalKeyboardHook keyboardHook, MainWindow mainWindow)
         {
             _view = view;
             _view.DataContext = model;
             Model = model;
 
+            _mainWindow = mainWindow;
+
+            Model.SelectedKey = Model.GlobalShortcutKey;
             _keyboardHook = keyboardHook;
             HandleShortcutKeyChange();
             _keyboardHook.HookedKeys.Add(Keys.CapsLock);
+
+            HandleAlwaysOnTopChange();
 
             var allKeys = new List<Keys>();
             foreach (Keys key in Enum.GetValues(typeof(Keys)))
@@ -57,8 +62,14 @@ namespace CapsKey
             {
                 RegistryHelper.StartWithWindows = Model.StartWithWindows;
             }
-            // ToDo: support "Always on top".
-            // ToDo: support "Suppress CAPS key".
+            else if (e.PropertyName == nameof(SettingsModel.AlwaysOnTop))
+            {
+                HandleAlwaysOnTopChange();
+            }
+            else if (e.PropertyName == nameof(SettingsModel.SuppressCapsKey))
+            {
+                // Nothing to do here. Handled in `MainSupervisor::OnKeyUp()`.
+            }
         }
 
         private void HandleShortcutKeyChange()
@@ -73,6 +84,11 @@ namespace CapsKey
             }
         }
 
+        private void HandleAlwaysOnTopChange()
+        {
+            _mainWindow.Topmost = Model.AlwaysOnTop;
+        }
+
         private void OnSettingChanged(object sender, PropertyChangedEventArgs e)
         {
             _log.Info($"Updated setting {e.PropertyName} to: {Model.Config[e.PropertyName]}");
@@ -81,6 +97,7 @@ namespace CapsKey
         public void Show()
         {
             _view.Show();
+            _view.Focus();
         }
     }
 }
