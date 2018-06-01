@@ -102,5 +102,16 @@ namespace CapsKey.Model
                 }
             }
         }
+
+        private RelayCommand _viewLogPressed;
+        public RelayCommand ViewLogPressed
+        {
+            get { return _viewLogPressed; }
+            set
+            {
+                _viewLogPressed = value;
+                RaisePropertyChanged();
+            }
+        }
     }
 }

@@ -3,6 +3,9 @@ using CapsKey.Helpers;
 using System.Windows.Forms;
 using log4net;
 using System.Threading.Tasks;
+using Application = System.Windows.Application;
+using System;
+using System.Diagnostics;
 
 namespace CapsKey
 {
@@ -35,6 +38,25 @@ namespace CapsKey
 
             _settings = settings;
             _model.SettingsPressed = new RelayCommand(OnSettingsPressed);
+
+            _model.HelpPressed = new RelayCommand(OnHelpPressed);
+            _model.MinimisePressed = new RelayCommand(OnMinimisePressed);
+            _model.ClosePressed = new RelayCommand(OnClosePressed);
+        }
+
+        private void OnHelpPressed()
+        {
+            Process.Start("CapsKey User Guide.pdf");
+        }
+
+        private void OnMinimisePressed()
+        {
+            _view.Minimise();
+        }
+
+        private void OnClosePressed()
+        {
+            Application.Current.Shutdown();
         }
 
         private void OnModelCapsStateChanged(object source, CapsStateChangeEventArgs e)

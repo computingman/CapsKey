@@ -15,13 +15,55 @@ namespace CapsKey.Model
             set { SetCapsState(value, CapsStateSource.GUI); }
         }
 
+        public string ToggleSwitchTooltip
+        {
+            get
+            {
+                return $"Caps Lock {(_isCapsActive ? "ON" : "off")}{Environment.NewLine}Press to toggle";
+            }
+        }
+
         public void SetCapsState(bool value, CapsStateSource source)
         {
             if (_isCapsActive != value)
             {
                 _isCapsActive = value;
                 RaisePropertyChanged(nameof(IsCapsActive));
+                RaisePropertyChanged(nameof(ToggleSwitchTooltip));
                 CapsStateChanged?.Invoke(this, new CapsStateChangeEventArgs(value, source));
+            }
+        }
+
+        private RelayCommand _helpPressed;
+        public RelayCommand HelpPressed
+        {
+            get { return _helpPressed; }
+            set
+            {
+                _helpPressed = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private RelayCommand _minimisePressed;
+        public RelayCommand MinimisePressed
+        {
+            get { return _minimisePressed; }
+            set
+            {
+                _minimisePressed = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private RelayCommand _closePressed;
+        public RelayCommand ClosePressed
+        {
+            get { return _closePressed; }
+            set
+            {
+                _closePressed = value;
+                RaisePropertyChanged();
             }
         }
 

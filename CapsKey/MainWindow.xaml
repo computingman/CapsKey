@@ -5,31 +5,49 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CapsKey"
         xmlns:toggle="clr-namespace:ToggleSwitch;assembly=ToggleSwitch"
-        mc:Ignorable="d"
-        Closed="OnWindowClosed" Background="#1E1E1E" 
-        Title="Caps" Height="60" Width="137">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
-        
-        <toggle:HorizontalToggleSwitch x:Name="ToggleSwitch" IsChecked="{Binding IsCapsActive, Mode=TwoWay}" Margin="3">
-            <toggle:HorizontalToggleSwitch.UncheckedContent>
-                <Grid>
-                    <Path Data="M0,0 L25,25" Stroke="White" Stretch="UniformToFill" StrokeThickness="6"/>
-                    <Path Data="M0,25 L25,0" Stroke="White" Stretch="UniformToFill" StrokeThickness="6" />
-                </Grid>
-            </toggle:HorizontalToggleSwitch.UncheckedContent>
-            <toggle:HorizontalToggleSwitch.CheckedContent>
-                <Path Fill="White" Stretch="UniformToFill" Data="M 21.7,52.2 L 74.4,0 L 74.4,18.667 L 22,70.708 L 0.,49 L 0,29.8 L 21.7,52.2 Z" />
-            </toggle:HorizontalToggleSwitch.CheckedContent>
-        </toggle:HorizontalToggleSwitch>
+        mc:Ignorable="d" WindowStyle="None" MouseLeftButtonDown="OnWindowMouseLeftButtonDown"
+        Background="Transparent" AllowsTransparency="True" ResizeMode="CanMinimize"
+        Title="CapsKey" Height="50" Width="126">
+    <Border BorderThickness="1" BorderBrush="SlateGray" Background="#1E1E1E" CornerRadius="5">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <!-- ToDo: move settings button to title bar? -->
-        <Button x:Name="SettingsButton" Command="{Binding SettingsPressed}" Grid.Column="1" ToolTip="Settings"
-                 Margin="0 0 3 0" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
-            <Image Source="Assets/Settings-Icon.png"/>
-        </Button>
-    </Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="95"/>
+                <ColumnDefinition Width="31"/>
+            </Grid.ColumnDefinitions>
+
+            <Label x:Name="TitleLabel" Style="{StaticResource TitleLabel}">CapsKey</Label>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 -2">
+                <Label x:Name="DragHandle" Content="::::" ToolTip="Press and drag to move this window" Style="{StaticResource FaintLabel}" Cursor="ScrollAll"/>
+                <Button x:Name="HelpButton" Content="?" Command="{Binding HelpPressed}" ToolTip="Help" Style="{StaticResource BorderlessButton}" Cursor="Help"/>
+                <Button x:Name="MinimiseButton" Content="–" Command="{Binding MinimisePressed}" ToolTip="Minimise" Style="{StaticResource BorderlessButton}"/>
+                <Button x:Name="CloseButton" Content="×" Command="{Binding ClosePressed}" ToolTip="Close" Style="{StaticResource BorderlessButton}"/>
+            </StackPanel>
+            <!-- ToDo: add Close, Minimise and Help buttons -->
+            <!-- ToDo: consider adding drag handle -->
+
+            <toggle:HorizontalToggleSwitch x:Name="ToggleSwitch" IsChecked="{Binding IsCapsActive, Mode=TwoWay}"
+                ToolTip="{Binding ToggleSwitchTooltip}"
+                Margin="4 0 0 1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <toggle:HorizontalToggleSwitch.UncheckedContent>
+                    <Grid>
+                        <Path Data="M0,0 L25,25" Stroke="White" Stretch="UniformToFill" StrokeThickness="6"/>
+                        <Path Data="M0,25 L25,0" Stroke="White" Stretch="UniformToFill" StrokeThickness="6" />
+                    </Grid>
+                </toggle:HorizontalToggleSwitch.UncheckedContent>
+                <toggle:HorizontalToggleSwitch.CheckedContent>
+                    <Path Fill="White" Stretch="UniformToFill" Data="M 21.7,52.2 L 74.4,0 L 74.4,18.667 L 22,70.708 L 0.,49 L 0,29.8 L 21.7,52.2 Z" />
+                </toggle:HorizontalToggleSwitch.CheckedContent>
+            </toggle:HorizontalToggleSwitch>
+
+            <Button x:Name="SettingsButton" Command="{Binding SettingsPressed}" Grid.Row="1" Grid.Column="1" ToolTip="Settings" Margin="0 0 3 0" Style="{StaticResource BorderlessButton}">
+                <Image Source="Assets/Settings-Icon.png"/>
+            </Button>
+        </Grid>
+    </Border>
 </Window>

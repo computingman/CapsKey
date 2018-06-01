@@ -1,6 +1,7 @@
 ﻿using CapsKey.Properties;
 using System;
 using System.Windows;
+using System.Windows.Input;
 using Point = System.Drawing.Point;
 
 namespace CapsKey
@@ -15,8 +16,6 @@ namespace CapsKey
             InitializeComponent();
 
             SetStartupLocation();
-
-            LocationChanged += OnWindowLocationChanged;
         }
 
         private void SetStartupLocation()
@@ -36,7 +35,7 @@ namespace CapsKey
             }
         }
 
-        private void OnWindowLocationChanged(object sender, EventArgs e)
+        private void OnWindowLocationChanged()
         {
             if (!IsWindowLocationOnScreen())
                 return;
@@ -50,6 +49,11 @@ namespace CapsKey
             }
         }
 
+        public void Minimise()
+        {
+            WindowState = WindowState.Minimized;
+        }
+
         /// <returns>True if the window is positioned in a visible location,
         /// or False if the window is off-screen (e.g. due to being minimised or at a location on a detached monitor).</returns>
         private bool IsWindowLocationOnScreen()
@@ -60,9 +64,10 @@ namespace CapsKey
                 && Top < SystemParameters.VirtualScreenTop + SystemParameters.VirtualScreenHeight);
         }
 
-        private void OnWindowClosed(object sender, EventArgs e)
+        private void OnWindowMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Application.Current.Shutdown();
+            DragMove();
+            OnWindowLocationChanged();
         }
     }
 }

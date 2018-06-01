@@ -6,6 +6,7 @@ using System.ComponentModel;
 using log4net;
 using System.Collections.Generic;
 using System.Linq;
+using System.Diagnostics;
 
 namespace CapsKey
 {
@@ -44,6 +45,8 @@ namespace CapsKey
 
             Model.PropertyChanged += OnModelPropertyChanged;
             Model.Config.PropertyChanged += OnSettingChanged;
+
+            Model.ViewLogPressed = new RelayCommand(OnViewLogPressed);
         }
 
         private void OnModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -92,6 +95,11 @@ namespace CapsKey
         private void OnSettingChanged(object sender, PropertyChangedEventArgs e)
         {
             _log.Info($"Updated setting {e.PropertyName} to: {Model.Config[e.PropertyName]}");
+        }
+
+        private void OnViewLogPressed()
+        {
+            Process.Start("CapsKey.log");
         }
 
         public void Show()

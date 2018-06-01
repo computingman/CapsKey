@@ -3,16 +3,55 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:CapsKey">
     <Application.Resources>
-        <Thickness x:Key="CommonMargin" Left="5" Right="5" Top="5" Bottom="5"/>
+        <Thickness x:Key="SettingsCommonMargin" Left="5" Right="5" Top="5" Bottom="5"/>
+
+        <Style x:Key="TitleLabel" TargetType="{x:Type Label}">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="3 0"/>
+            <Setter Property="Padding" Value="3 0"/>
+        </Style>
+
+        <Style x:Key="FaintLabel" TargetType="{x:Type Label}" BasedOn="{StaticResource TitleLabel}">
+            <Setter Property="Foreground" Value="#5F5F63"/>
+        </Style>
+
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Margin" Value="{StaticResource SettingsCommonMargin}"/>
+        </Style>
+
+        <Style x:Key="BorderlessButton" TargetType="{x:Type Button}">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="0 0 3 0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" Margin="{TemplateBinding Margin}">
+                            <ContentPresenter  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#2D4457"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
         
         <Style TargetType="{x:Type ComboBox}">
             <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="{StaticResource CommonMargin}"/>
+            <Setter Property="Margin" Value="{StaticResource SettingsCommonMargin}"/>
         </Style>
 
         <Style TargetType="{x:Type CheckBox}">
             <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="{StaticResource CommonMargin}"/>
+            <Setter Property="Margin" Value="{StaticResource SettingsCommonMargin}"/>
         </Style>
     </Application.Resources>
 </Application>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CapsKey"
         mc:Ignorable="d"
-        Title="Caps Key Settings" Height="200" Width="300">
+        Title="CapsKey Settings" Height="178" Width="250">
     <StackPanel Orientation="Vertical">
         
         <DockPanel>
@@ -18,5 +18,7 @@
         <CheckBox IsChecked="{Binding AlwaysOnTop, Mode=TwoWay}">Keep on top of other windows</CheckBox>
 
         <CheckBox IsChecked="{Binding SuppressCapsKey, Mode=TwoWay}">Suppress CapsLock key presses</CheckBox>
+
+        <Button x:Name="ViewLogButton" Command="{Binding ViewLogPressed}">View log file</Button>
     </StackPanel>
 </Window>
