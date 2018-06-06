@@ -39,12 +39,22 @@ namespace CapsKey
             var allKeys = new List<Keys>();
             foreach (Keys key in Enum.GetValues(typeof(Keys)))
             {
-                allKeys.Add(key);
+                if (key != Keys.Capital && key != Keys.CapsLock)
+                {
+                    allKeys.Add(key);
+                }
             }
             Model.AllKeys = allKeys.OrderBy(key => key.ToString()).ToArray();
 
             Model.PropertyChanged += OnModelPropertyChanged;
             Model.Config.PropertyChanged += OnSettingChanged;
+
+            if (model.Config.IsFirstStart)
+            {
+                model.StartWithWindows = RegistryHelper.StartWithWindows;
+                model.Config.IsFirstStart = false;
+                model.Config.Save();
+            }
 
             Model.ViewLogPressed = new RelayCommand(OnViewLogPressed);
         }

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="24.976667mm"
+   height="30.113609mm"
+   viewBox="0 0 88.5 106.70176"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="App-Icon.svg"
+   inkscape:export-filename="C:\Code\CapsKey\CapsKey\Assets\App-Icon.png"
+   inkscape:export-xdpi="41.260048"
+   inkscape:export-ydpi="41.260048">
+  <title
+     id="title4144">CapsKey</title>
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="5.6568542"
+     inkscape:cx="49.589272"
+     inkscape:cy="59.081603"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1920"
+     inkscape:window-height="1018"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>CapsKey</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-27.616145,-930.66039)">
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:#e39595;stroke-width:3.75688434;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:5;stroke-opacity:1"
+       id="rect4136"
+       width="84.743118"
+       height="25.243116"
+       x="29.494583"
+       y="1010.2406"
+       rx="4.3682017"
+       ry="5.0486231" />
+    <circle
+       style="fill:#f9f9f9;fill-opacity:1;stroke:none;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:5;stroke-opacity:1"
+       id="path4138"
+       cx="105"
+       cy="1017.8622"
+       r="4" />
+    <rect
+       style="fill:#b3b3b3;fill-opacity:1;stroke:#f9f9f9;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:5;stroke-opacity:1"
+       id="rect4140"
+       width="22.5"
+       height="46"
+       x="60.616142"
+       y="958.86218"
+       rx="2.7685773"
+       ry="5.0486202" />
+    <path
+       sodipodi:type="star"
+       style="fill:#e39595;fill-opacity:1;stroke:#f9f9f9;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:5;stroke-opacity:1"
+       id="path4142"
+       sodipodi:sides="3"
+       sodipodi:cx="71.866142"
+       sodipodi:cy="966.36218"
+       sodipodi:r1="31.70179"
+       sodipodi:r2="15.850895"
+       sodipodi:arg1="0.52359878"
+       sodipodi:arg2="1.5707963"
+       inkscape:flatsided="true"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 99.320698,982.21308 -54.909111,0 27.454555,-47.55269 z"
+       inkscape:transform-center-y="-7.9254475" />
+    <rect
+       ry="5.0486202"
+       rx="2.7685773"
+       y="958.86218"
+       x="60.616142"
+       height="46"
+       width="22.5"
+       id="rect4146"
+       style="fill:#e39595;fill-opacity:1;stroke:none;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:5;stroke-opacity:1" />
+  </g>
+</svg>

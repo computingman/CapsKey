@@ -9,16 +9,21 @@
     <StackPanel Orientation="Vertical">
         
         <DockPanel>
+            <DockPanel.ToolTip>Select a shortcut key to toggle the Caps Lock key state.</DockPanel.ToolTip>
             <CheckBox IsChecked="{Binding UseShortcutKey, Mode=TwoWay}">Shortcut:</CheckBox>
             <ComboBox ItemsSource="{Binding AllKeys}" SelectedItem="{Binding SelectedKey, Mode=TwoWay}" IsEnabled="{Binding UseShortcutKey}"/>
         </DockPanel>
 
-        <CheckBox IsChecked="{Binding StartWithWindows, Mode=TwoWay}">Start with Windows</CheckBox>
+        <CheckBox IsChecked="{Binding StartWithWindows, Mode=TwoWay}"
+            ToolTip="Auto-start this application when you log-in to Windows.">Start with Windows</CheckBox>
 
-        <CheckBox IsChecked="{Binding AlwaysOnTop, Mode=TwoWay}">Keep on top of other windows</CheckBox>
+        <CheckBox IsChecked="{Binding AlwaysOnTop, Mode=TwoWay}"
+            ToolTip="Selecting 'Keep on top' will display this app's main window in front of all other windows.">Keep on top</CheckBox>
 
-        <CheckBox IsChecked="{Binding SuppressCapsKey, Mode=TwoWay}">Suppress CapsLock key presses</CheckBox>
+        <CheckBox IsChecked="{Binding SuppressCapsKey, Mode=TwoWay}"
+            ToolTip="If 'Suppress' is selected, pressing the Caps Lock key will no longer toggle its state.">Suppress Caps Lock key</CheckBox>
 
-        <Button x:Name="ViewLogButton" Command="{Binding ViewLogPressed}">View log file</Button>
+        <Button x:Name="ViewLogButton" Command="{Binding ViewLogPressed}"
+            ToolTip="View the latest messages logged by this application.">View log file</Button>
     </StackPanel>
 </Window>

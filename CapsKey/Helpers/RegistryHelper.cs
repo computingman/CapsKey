@@ -27,7 +27,10 @@ namespace CapsKey.Helpers
                 {
                     using (var key = Registry.CurrentUser.OpenSubKey(StartWithWindowsSubKey, true))
                     {
-                        key.DeleteValue(AppValue);
+                        if (key.GetValue(AppValue, null) != null)
+                        {
+                            key.DeleteValue(AppValue);
+                        }
                     }
                 }
             }

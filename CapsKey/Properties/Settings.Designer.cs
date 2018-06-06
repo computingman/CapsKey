@@ -112,5 +112,17 @@ namespace CapsKey.Properties {
                 return ((int)(this["CapsStateCheckDelay_ms"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool IsFirstStart {
+            get {
+                return ((bool)(this["IsFirstStart"]));
+            }
+            set {
+                this["IsFirstStart"] = value;
+            }
+        }
     }
 }

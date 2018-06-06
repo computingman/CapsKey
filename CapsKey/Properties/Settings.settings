@@ -26,5 +26,8 @@
     <Setting Name="CapsStateCheckDelay_ms" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">30</Value>
     </Setting>
+    <Setting Name="IsFirstStart" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
