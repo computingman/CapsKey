@@ -50,6 +50,7 @@
         </Style>
 
         <Style TargetType="{x:Type CheckBox}">
+            <Setter Property="Foreground" Value="White"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Margin" Value="{StaticResource SettingsCommonMargin}"/>
         </Style>

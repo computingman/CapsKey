@@ -4,8 +4,7 @@ using System.Windows.Forms;
 using log4net;
 using System.Threading.Tasks;
 using Application = System.Windows.Application;
-using System;
-using System.Diagnostics;
+using CapsKey.Properties;
 
 namespace CapsKey
 {
@@ -19,10 +18,12 @@ namespace CapsKey
 
         private SettingsController _settings;
 
+        private HelpWindow _helpWindow;
+
         private bool _isSuppressingCapsKeyPress;
         private object _suppressingPressLock = new object();
 
-        public MainSupervisor(MainModel model, MainWindow view, GlobalKeyboardHook keyboardHook, SettingsController settings)
+        public MainSupervisor(MainModel model, MainWindow view, GlobalKeyboardHook keyboardHook, SettingsController settings, HelpWindow helpWindow)
         {
             _model = model;
             _view = view;
@@ -39,6 +40,8 @@ namespace CapsKey
             _settings = settings;
             _model.SettingsPressed = new RelayCommand(OnSettingsPressed);
 
+            _helpWindow = helpWindow;
+
             _model.HelpPressed = new RelayCommand(OnHelpPressed);
             _model.MinimisePressed = new RelayCommand(OnMinimisePressed);
             _model.ClosePressed = new RelayCommand(OnClosePressed);
@@ -46,7 +49,7 @@ namespace CapsKey
 
         private void OnHelpPressed()
         {
-            Process.Start("CapsKey User Guide.pdf");
+            _helpWindow.Show();
         }
 
         private void OnMinimisePressed()
@@ -73,7 +76,7 @@ namespace CapsKey
         {
             if (e.KeyCode == Keys.CapsLock)
             {
-                if (_settings.Model.SuppressCapsKey)
+                if (Settings.Default.SuppressCapsKey)
                 {
                     Task.Run(() => SuppressCapsKeyPress());
                 }
@@ -82,7 +85,7 @@ namespace CapsKey
                     _model.SetCapsState(KeyboardHelper.IsCapsKeyLocked(), CapsStateSource.CapsKey);
                 }
             }
-            else if (e.KeyCode == _settings.Model.GlobalShortcutKey)
+            else
             {
                 _model.SetCapsState(!_model.IsCapsActive, CapsStateSource.ShortcutKey);
             }

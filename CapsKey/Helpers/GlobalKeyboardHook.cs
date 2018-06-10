@@ -1,6 +1,5 @@
-using CapsKey.Properties;
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -27,33 +26,39 @@ namespace CapsKey.Helpers
 			public int dwExtraInfo;
 		}
 
-		const int WH_KEYBOARD_LL = 13;
-		const int WM_KEYDOWN = 0x100;
-		const int WM_KEYUP = 0x101;
-		const int WM_SYSKEYDOWN = 0x104;
-		const int WM_SYSKEYUP = 0x105;
-		#endregion
+        private const int WH_KEYBOARD_LL = 13;
+        private const int WM_KEYDOWN = 0x100;
+        private const int WM_KEYUP = 0x101;
+        private const int WM_SYSKEYDOWN = 0x104;
+        private const int WM_SYSKEYUP = 0x105;
 
-		#region Instance Variables
-		/// <summary>
-		/// The collections of keys to watch for
-		/// </summary>
-		public List<Keys> HookedKeys = new List<Keys>();
-		/// <summary>
-		/// Handle to the hook, need this to unhook and call the next hook
-		/// </summary>
-		private IntPtr hhook = IntPtr.Zero;
+        private const int VK_SHIFT = 0x10;
+        private const int VK_CONTROL = 0x11;
+        private const int VK_MENU = 0x12;
+        private const int MODIFIER_MASK = 0x8000;
+        #endregion
+
+        #region Instance Variables
+        /// <summary>
+        /// A key to watch for (in addition to CapsLock, which is always hooked).
+        /// </summary>
+        public Keys HookKey { get; set; } = Keys.None;
+
+        public bool HookWithAlt { get; set; }
+        public bool HookWithShift { get; set; }
+        public bool HookWithControl { get; set; }
+
+        /// <summary>
+        /// Handle to the hook, need this to unhook and call the next hook
+        /// </summary>
+        private IntPtr hhook = IntPtr.Zero;
 
         private KeyboardHookProc _callback;
 		#endregion
 
 		#region Events
 		/// <summary>
-		/// Occurs when one of the hooked keys is pressed
-		/// </summary>
-		public event KeyEventHandler KeyDown;
-		/// <summary>
-		/// Occurs when one of the hooked keys is released
+		/// Occurs when the hooked keys are pressed and then released.
 		/// </summary>
 		public event KeyEventHandler KeyUp;
 		#endregion
@@ -89,16 +94,6 @@ namespace CapsKey.Helpers
 			hhook = SetWindowsHookEx(WH_KEYBOARD_LL, _callback, hInstance, 0);
 		}
 
-        public void HookShortcutKey(Keys shortcutKey)
-        {
-            HookedKeys.RemoveAll(key => key != Keys.CapsLock);
-            
-            if (shortcutKey != Keys.None)
-            {
-                HookedKeys.Add(shortcutKey);
-            }
-        }
-
         /// <summary>
         /// Uninstalls the global hook
         /// </summary>
@@ -116,26 +111,20 @@ namespace CapsKey.Helpers
 		/// <returns></returns>
 		public int HookProc(int code, int wParam, ref KeyboardHookStruct lParam)
         {
-			if (code >= 0)
+			if (code >= 0 && KeyUp != null && (wParam == WM_KEYUP || wParam == WM_SYSKEYUP))
             {
-				Keys key = (Keys)lParam.vkCode;
-				if (HookedKeys.Contains(key))
+				var key = (Keys)lParam.vkCode;
+                if (key == Keys.CapsLock
+                    || (key == HookKey
+                        && (!HookWithAlt || (GetKeyState(VK_MENU) & MODIFIER_MASK) != 0)
+                        && (!HookWithShift || (GetKeyState(VK_SHIFT) & MODIFIER_MASK) != 0)
+                        && (!HookWithControl || (GetKeyState(VK_CONTROL) & MODIFIER_MASK) != 0)))
                 {
-					KeyEventArgs kea = new KeyEventArgs(key);
-					if ((wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN) && (KeyDown != null))
-                    {
-						KeyDown(this, kea) ;
-					}
-                    else if ((wParam == WM_KEYUP || wParam == WM_SYSKEYUP) && (KeyUp != null))
-                    {
-						KeyUp(this, kea);
-					}
-
-                    if (kea.Handled)
-                    {
+                    KeyEventArgs eventArgs = new KeyEventArgs(key);
+                    KeyUp(this, eventArgs);
+                    if (eventArgs.Handled)
                         return 1;
-                    }
-				}
+                }
 			}
 			return CallNextHookEx(hhook, code, wParam, ref lParam);
 		}
@@ -179,6 +168,14 @@ namespace CapsKey.Helpers
 		/// <returns>A handle to the library</returns>
 		[DllImport("kernel32.dll")]
 		static extern IntPtr LoadLibrary(string lpFileName);
-		#endregion
-	}
+        
+        /// <summary>
+        /// Gets the state of modifier keys for a given keycode.
+        /// </summary>
+        /// <param name="keyCode">The keyCode</param>
+        /// <returns></returns>
+        [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true, CallingConvention = CallingConvention.Winapi)]
+        public static extern short GetKeyState(int keyCode);
+        #endregion
+    }
 }

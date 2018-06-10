@@ -37,11 +37,13 @@ namespace CapsKey
             var mainModel = new MainModel();
             var mainWindow = new MainWindow();
 
+            var helpWindow = new HelpWindow();
+
             var settingsModel = new SettingsModel();
             var settingsView = new SettingsWindow();
             var settingsController = new SettingsController(settingsView, settingsModel, keyboardHook, mainWindow);
 
-            var controller = new MainSupervisor(mainModel, mainWindow, keyboardHook, settingsController);
+            var controller = new MainSupervisor(mainModel, mainWindow, keyboardHook, settingsController, helpWindow);
             controller.Show();
         }
 

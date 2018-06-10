@@ -5,9 +5,6 @@
     <Setting Name="MainWindowLocation" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">100, 100</Value>
     </Setting>
-    <Setting Name="GlobalShortcutKey" Type="System.Windows.Forms.Keys" Scope="User">
-      <Value Profile="(Default)">None</Value>
-    </Setting>
     <Setting Name="StartWithWindows" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
@@ -28,6 +25,18 @@
     </Setting>
     <Setting Name="IsFirstStart" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="ShortcutWithAltKey" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ShortcutWithShiftKey" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ShortcutWithControlKey" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ShortcutKeySelected" Type="System.Windows.Forms.Keys" Scope="User">
+      <Value Profile="(Default)">None</Value>
     </Setting>
   </Settings>
 </SettingsFile>

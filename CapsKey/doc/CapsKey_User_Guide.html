@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>CapsKey_User_Guide</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1>CapsKey User Guide</h1>
+<p><style>
+body {
+	color: white;
+	background: #202e44;
+}
+h1, h2, h3 {
+	color: white;
+}
+a {
+	color: #95ccff;
+}
+code {
+	border: 1px solid #46575f;
+	background-color: black;
+}
+</style></p>
+<h2>Contents</h2>
+<ol>
+<li><a href="#Overview">Overview</a></li>
+<li>
+<a href="#MainWindow">Main Window</a>
+<ol>
+<li><a href="#Slider">Caps Lock State Slider</a></li>
+<li><a href="#DragHandle">Drag / Move</a></li>
+<li><a href="#Help">Help</a></li>
+<li><a href="#Minimise">Minimise</a></li>
+<li><a href="#Close">Close</a></li>
+<li><a href="#OpenSettings">Open Settings</a></li>
+</ol>
+</li>
+<li>
+<a href="#SettingsWindow">Settings Window</a>
+<ol>
+<li><a href="#KeepOnTop">Keep On Top</a></li>
+<li><a href="#StartWithWindows">Start With Windows</a></li>
+<li><a href="#SuppressCapsLockKey">Suppress Caps Lock Key</a></li>
+<li><a href="#Shortcut">Shortcut</a></li>
+<li><a href="#ViewLogFile">View Log File</a></li>
+<li><a href="#CloseSettings">Close</a></li>
+</ol>
+</li>
+</ol>
+<h2>Overview <a id="Overview"></a></h2>
+<p><img src="Main_window.png" title="CapsKey main window" /></p>
+<p>This little Windows app:</p>
+<ul>
+<li>Displays the current state of the Caps Lock key (active / inactive),</li>
+<li>Toggles the Caps Lock key state (using the <a href="#Slider">slider</a> or a <a href="#Shortcut">shortcut key</a>), <em>and</em></li>
+<li>Optionally suppresses Caps Lock key presses (to maintain the current state).</li>
+</ul>
+<p>This may be useful if you have a faulty keyboard, to work-around Caps Lock key problems including:</p>
+<ul>
+<li>LED not illuminating when active,</li>
+<li>presses being ineffectual, <em>and/or</em></li>
+<li>toggling itself at random intervals.</li>
+</ul>
+<h2>Main Window <a id="MainWindow"></a></h2>
+<h3>Caps Lock State Slider <a id="Slider"></a></h3>
+<p>This control shows either state of the Caps Lock key:</p>
+<ol>
+<li><img src="Slider_CapsLock-Inactive.png" title="Caps Lock inactive" /> Caps Lock <strong>inactive</strong>; press or slide to activate, <em>or</em></li>
+<li><img src="Slider_CapsLock-Active.png" title="Caps Lock active" /> Caps Lock <strong>active</strong>; press or slide to deactivate.</li>
+</ol>
+<h3>Drag / Move <a id="DragHandle"></a></h3>
+<p>Press and drag the '<strong>::::</strong>' handle to move the window anywhere on-screen.</p>
+<p><img src="Drag_handle_outlined.png" title="Drag handle to move the main window" /></p>
+<h3>Help <a id="Help"></a></h3>
+<p>Press the '<strong>?</strong>' icon to view this user guide.</p>
+<p><img src="Help_icon_outlined.png" title="Help icon opens user guide" /></p>
+<h3>Minimise <a id="Minimise"></a></h3>
+<p>Press the '<strong>–</strong>' icon to hide the main window.</p>
+<p><img src="Minimise_icon_outlined.png" title="Minimise icon" /></p>
+<p>Press the Windows taskbar icon to restore this window.</p>
+<p><img src="Windows_taskbar_icon.png" title="Windows taskbar icon" /></p>
+<h3>Close <a id="Close"></a></h3>
+<p>Press the '<strong>×</strong>' icon to close the application.</p>
+<p><img src="Close_icon_outlined.png" title="Close icon" /></p>
+<p>Locate the &quot;<strong>CapsKey</strong>&quot; folder under &quot;<strong>Windows Start Menu » All Programs</strong>&quot; to re-open.</p>
+<h3>Open Settings <a id="OpenSettings"></a></h3>
+<p>Press the '<img src="Settings-Icon-25px.png" title="Settings icon" />' icon to open the <a href="#SettingsWindow">Settings Window</a>.</p>
+<h2>Settings Window <a id="SettingsWindow"></a></h2>
+<p>This window will be displayed on pressing the <a href="#OpenSettings">Open Settings</a> icon.</p>
+<p><img src="Settings_window.png" title="Settings window" /></p>
+<h3>Keep On Top <a id="KeepOnTop"></a></h3>
+<p>Selecting 'Keep on top' will display this app's <a href="#MainWindow">Main Window</a> in front of all other windows.</p>
+<h3>Start With Windows <a id="StartWithWindows"></a></h3>
+<p>Select to auto-start this application when you log-in to Windows.</p>
+<h3>Suppress Caps Lock Key <a id="SuppressCapsLockKey"></a></h3>
+<p>If 'Suppress' is selected, pressing the Caps Lock key will no longer toggle its state.</p>
+<h3>Shortcut <a id="Shortcut"></a></h3>
+<p>Select a shortcut key to toggle the Caps Lock key state.</p>
+<p>You may also specify a combination of shortcut keys by selecting the <strong>Alt</strong>, <strong>Shift</strong> &amp;/or <strong>Control</strong> options. </p>
+<p>For example, with <strong>Alt</strong> &amp; <strong>F7</strong> selected (as shown in the screenshot above), pressing both <strong>Alt</strong> + <strong>F7</strong> keys (at once) will flip the Caps Lock key state.   </p>
+<h3>View Log File <a id="ViewLogFile"></a></h3>
+<p>Press the '<strong>View log file</strong>' button to open the latest file (named <code>CapsKey.log</code>) containing messages from this application.</p>
+<p>Older messages may be found in numbered log files (<code>CapsKey.log.1</code> → <code>CapsKey.log.4</code>) within the same directory (i.e. the application's installation directory, typically <code>C:\Program Files (x86)\CapsKey</code>).</p>
+<p>Log files may be useful to the developer in troubleshooting any problem that you may encounter with this application.</p>
+<h3>Close <a id="CloseSettings"></a></h3>
+<p>Press the '<strong>Close</strong>' button to hide the settings window. </p>
+<p>Any setting change is automatically applied and stored upon selecting the new setting.</p>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

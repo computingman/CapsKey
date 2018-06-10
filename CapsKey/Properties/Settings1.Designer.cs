@@ -37,18 +37,6 @@ namespace CapsKey.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("None")]
-        public global::System.Windows.Forms.Keys GlobalShortcutKey {
-            get {
-                return ((global::System.Windows.Forms.Keys)(this["GlobalShortcutKey"]));
-            }
-            set {
-                this["GlobalShortcutKey"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool StartWithWindows {
             get {
@@ -122,6 +110,54 @@ namespace CapsKey.Properties {
             }
             set {
                 this["IsFirstStart"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShortcutWithAltKey {
+            get {
+                return ((bool)(this["ShortcutWithAltKey"]));
+            }
+            set {
+                this["ShortcutWithAltKey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShortcutWithShiftKey {
+            get {
+                return ((bool)(this["ShortcutWithShiftKey"]));
+            }
+            set {
+                this["ShortcutWithShiftKey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShortcutWithControlKey {
+            get {
+                return ((bool)(this["ShortcutWithControlKey"]));
+            }
+            set {
+                this["ShortcutWithControlKey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("None")]
+        public global::System.Windows.Forms.Keys ShortcutKeySelected {
+            get {
+                return ((global::System.Windows.Forms.Keys)(this["ShortcutKeySelected"]));
+            }
+            set {
+                this["ShortcutKeySelected"] = value;
             }
         }
     }

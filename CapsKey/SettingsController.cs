@@ -7,6 +7,8 @@ using log4net;
 using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
+using System.Reflection;
+using System.IO;
 
 namespace CapsKey
 {
@@ -19,97 +21,116 @@ namespace CapsKey
 
         private MainWindow _mainWindow;
 
-        public SettingsModel Model { get; private set; }
+        private SettingsModel _model;
 
         public SettingsController(SettingsWindow view, SettingsModel model, GlobalKeyboardHook keyboardHook, MainWindow mainWindow)
         {
             _view = view;
             _view.DataContext = model;
-            Model = model;
+            _model = model;
 
             _mainWindow = mainWindow;
 
-            Model.SelectedKey = Model.GlobalShortcutKey;
             _keyboardHook = keyboardHook;
             HandleShortcutKeyChange();
-            _keyboardHook.HookedKeys.Add(Keys.CapsLock);
 
             HandleAlwaysOnTopChange();
+
+            PopulateAvailableShortcutKeys();
+            
+            _model.Config.PropertyChanged += OnSettingChanged;
+
+            if (model.Config.IsFirstStart)
+            {
+                model.Config.StartWithWindows = RegistryHelper.StartWithWindows;
+                model.Config.IsFirstStart = false;
+            }
+
+            _model.ViewLogPressed = new RelayCommand(OnViewLogPressed);
+            _model.ClosePressed = new RelayCommand(OnClosePressed);
+        }
+
+        private void PopulateAvailableShortcutKeys()
+        {
+            var excludeKeys = new[]
+            {
+                Keys.Capital,
+                Keys.CapsLock,
+                Keys.ShiftKey,
+                Keys.ControlKey
+            };
 
             var allKeys = new List<Keys>();
             foreach (Keys key in Enum.GetValues(typeof(Keys)))
             {
-                if (key != Keys.Capital && key != Keys.CapsLock)
+                if (!excludeKeys.Contains(key) && ((int)key % (int)Keys.Modifiers) != 0)
                 {
                     allKeys.Add(key);
                 }
             }
-            Model.AllKeys = allKeys.OrderBy(key => key.ToString()).ToArray();
 
-            Model.PropertyChanged += OnModelPropertyChanged;
-            Model.Config.PropertyChanged += OnSettingChanged;
-
-            if (model.Config.IsFirstStart)
-            {
-                model.StartWithWindows = RegistryHelper.StartWithWindows;
-                model.Config.IsFirstStart = false;
-                model.Config.Save();
-            }
-
-            Model.ViewLogPressed = new RelayCommand(OnViewLogPressed);
-        }
-
-        private void OnModelPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(SettingsModel.UseShortcutKey)
-                || e.PropertyName == nameof(SettingsModel.GlobalShortcutKey))
-            {
-                HandleShortcutKeyChange();
-            }
-            else if (e.PropertyName == nameof(SettingsModel.SelectedKey))
-            {
-                // ToDo: support modifier keys (e.g. Shift, Ctrl, etc)?
-                Model.GlobalShortcutKey = Model.SelectedKey;
-            }
-            else if (e.PropertyName == nameof(SettingsModel.StartWithWindows))
-            {
-                RegistryHelper.StartWithWindows = Model.StartWithWindows;
-            }
-            else if (e.PropertyName == nameof(SettingsModel.AlwaysOnTop))
-            {
-                HandleAlwaysOnTopChange();
-            }
-            else if (e.PropertyName == nameof(SettingsModel.SuppressCapsKey))
-            {
-                // Nothing to do here. Handled in `MainSupervisor::OnKeyUp()`.
-            }
+            _model.AllKeys = allKeys.OrderBy(key => key.ToString()).ToArray();
         }
 
         private void HandleShortcutKeyChange()
         {
-            if (Model.UseShortcutKey)
+            if (_model.Config.UseShortcutKey)
             {
-                _keyboardHook.HookShortcutKey(Model.GlobalShortcutKey);
+                _keyboardHook.HookKey = _model.Config.ShortcutKeySelected;
+                _keyboardHook.HookWithAlt = _model.Config.ShortcutWithAltKey;
+                _keyboardHook.HookWithShift = _model.Config.ShortcutWithShiftKey;
+                _keyboardHook.HookWithControl = _model.Config.ShortcutWithControlKey;
             }
             else
             {
-                _keyboardHook.HookShortcutKey(Keys.None);
+                _keyboardHook.HookKey = Keys.None;
             }
         }
 
         private void HandleAlwaysOnTopChange()
         {
-            _mainWindow.Topmost = Model.AlwaysOnTop;
+            _mainWindow.Topmost = _model.Config.AlwaysOnTop;
         }
 
         private void OnSettingChanged(object sender, PropertyChangedEventArgs e)
         {
-            _log.Info($"Updated setting {e.PropertyName} to: {Model.Config[e.PropertyName]}");
+            _model.Config.Save();        
+            _log.Info($"Updated setting {e.PropertyName} to: {_model.Config[e.PropertyName]}");
+
+            if (e.PropertyName.Contains("Shortcut"))
+            {
+                HandleShortcutKeyChange();
+            }
+            else if (e.PropertyName == nameof(_model.Config.StartWithWindows))
+            {
+                RegistryHelper.StartWithWindows = _model.Config.StartWithWindows;
+            }
+            else if (e.PropertyName == nameof(_model.Config.AlwaysOnTop))
+            {
+                HandleAlwaysOnTopChange();
+            }
+            else if (e.PropertyName == nameof(_model.Config.SuppressCapsKey))
+            {
+                // Nothing to do here. Handled in `MainSupervisor::OnKeyUp()`.
+            }
         }
 
         private void OnViewLogPressed()
         {
-            Process.Start("CapsKey.log");
+            var logFilePath = Assembly.GetEntryAssembly().Location.Replace(".exe", ".log");
+            if (File.Exists(logFilePath))
+            {
+                Process.Start(logFilePath);
+            }
+            else
+            {
+                MessageBox.Show($@"Sorry, the file ""{logFilePath}"" was not found.", "Log file missing");
+            }
+        }
+
+        private void OnClosePressed()
+        {
+            _view.Hide();
         }
 
         public void Show()

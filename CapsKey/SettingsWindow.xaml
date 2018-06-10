@@ -4,26 +4,50 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CapsKey"
-        mc:Ignorable="d"
-        Title="CapsKey Settings" Height="178" Width="250">
-    <StackPanel Orientation="Vertical">
+        mc:Ignorable="d" Background="#1E1E1E"
+        Title="CapsKey Settings" Height="215" Width="250">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         
-        <DockPanel>
-            <DockPanel.ToolTip>Select a shortcut key to toggle the Caps Lock key state.</DockPanel.ToolTip>
-            <CheckBox IsChecked="{Binding UseShortcutKey, Mode=TwoWay}">Shortcut:</CheckBox>
-            <ComboBox ItemsSource="{Binding AllKeys}" SelectedItem="{Binding SelectedKey, Mode=TwoWay}" IsEnabled="{Binding UseShortcutKey}"/>
-        </DockPanel>
+        <CheckBox IsChecked="{Binding Config.AlwaysOnTop, Mode=TwoWay}" Grid.Row="0"
+            ToolTip="Selecting 'Keep on top' will display this app's main window in front of all other windows."
+            >Keep on top</CheckBox>
 
-        <CheckBox IsChecked="{Binding StartWithWindows, Mode=TwoWay}"
-            ToolTip="Auto-start this application when you log-in to Windows.">Start with Windows</CheckBox>
+        <CheckBox IsChecked="{Binding Config.StartWithWindows, Mode=TwoWay}" Grid.Row="1"
+            ToolTip="Auto-start this application when you log-in to Windows."
+            >Start with Windows</CheckBox>
 
-        <CheckBox IsChecked="{Binding AlwaysOnTop, Mode=TwoWay}"
-            ToolTip="Selecting 'Keep on top' will display this app's main window in front of all other windows.">Keep on top</CheckBox>
+        <CheckBox IsChecked="{Binding Config.SuppressCapsKey, Mode=TwoWay}" Grid.Row="2"
+            ToolTip="If 'Suppress' is selected, pressing the Caps Lock key will no longer toggle its state."
+            >Suppress Caps Lock key</CheckBox>
 
-        <CheckBox IsChecked="{Binding SuppressCapsKey, Mode=TwoWay}"
-            ToolTip="If 'Suppress' is selected, pressing the Caps Lock key will no longer toggle its state.">Suppress Caps Lock key</CheckBox>
+        <Border BorderThickness="0 1" BorderBrush="Gray" Grid.Row="3">
+            <DockPanel>
+                <DockPanel.ToolTip>Select a shortcut key to toggle the Caps Lock key state.</DockPanel.ToolTip>
+                <CheckBox IsChecked="{Binding Config.UseShortcutKey, Mode=TwoWay}" DockPanel.Dock="Left" VerticalAlignment="Top" Margin="5 8">Shortcut:</CheckBox>
+                <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+                    <CheckBox IsChecked="{Binding Config.ShortcutWithAltKey}" IsEnabled="{Binding Config.UseShortcutKey}">Alt</CheckBox>
+                    <CheckBox IsChecked="{Binding Config.ShortcutWithShiftKey}" IsEnabled="{Binding Config.UseShortcutKey}">Shift</CheckBox>
+                    <CheckBox IsChecked="{Binding Config.ShortcutWithControlKey}" IsEnabled="{Binding Config.UseShortcutKey}">Control</CheckBox>
+                </StackPanel>
+                <ComboBox ItemsSource="{Binding AllKeys}" SelectedItem="{Binding Config.ShortcutKeySelected, Mode=TwoWay}"
+                          IsEnabled="{Binding Config.UseShortcutKey}"/>
+            </DockPanel>
+        </Border>
 
-        <Button x:Name="ViewLogButton" Command="{Binding ViewLogPressed}"
-            ToolTip="View the latest messages logged by this application.">View log file</Button>
-    </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="4" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+            <Button x:Name="ViewLogButton" Command="{Binding ViewLogPressed}" Padding="8 3"
+                ToolTip="View the latest messages logged by this application."
+                >View log file</Button>
+            <Button x:Name="CloseButton" Command="{Binding ClosePressed}" Padding="8 3"
+                ToolTip="Close this window."
+                >Close</Button>
+        </StackPanel>
+    </Grid>
 </Window>

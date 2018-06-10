@@ -39,6 +39,8 @@ Source: "..\bin\Release\CapsKey.exe.config"; DestDir: "{app}"; Flags: ignorevers
 Source: "..\bin\Release\CapsKey.pdb"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\bin\Release\log4net.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\bin\Release\ToggleSwitch.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\bin\Release\doc\CapsKey_User_Guide.html"; DestDir: "{app}\doc"; Flags: ignoreversion
+Source: "..\bin\Release\doc\*.png"; DestDir: "{app}\doc"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
