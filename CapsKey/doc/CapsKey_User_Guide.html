@@ -307,6 +307,9 @@ code {
 	border: 1px solid #46575f;
 	background-color: black;
 }
+ol ol {
+	margin-top: 2px;
+}
 </style></p>
 <h2>Contents</h2>
 <ol>
@@ -314,7 +317,7 @@ code {
 <li>
 <a href="#MainWindow">Main Window</a>
 <ol>
-<li><a href="#Slider">Caps Lock State Slider</a></li>
+<li><a href="#Slider">Caps Lock Toggle Switch</a></li>
 <li><a href="#DragHandle">Drag / Move</a></li>
 <li><a href="#Help">Help</a></li>
 <li><a href="#Minimise">Minimise</a></li>
@@ -333,13 +336,14 @@ code {
 <li><a href="#CloseSettings">Close</a></li>
 </ol>
 </li>
+<li><a href="#SourceCode">Source Code</a></li>
 </ol>
 <h2>Overview <a id="Overview"></a></h2>
 <p><img src="Main_window.png" title="CapsKey main window" /></p>
 <p>This little Windows app:</p>
 <ul>
 <li>Displays the current state of the Caps Lock key (active / inactive),</li>
-<li>Toggles the Caps Lock key state (using the <a href="#Slider">slider</a> or a <a href="#Shortcut">shortcut key</a>), <em>and</em></li>
+<li>Toggles the Caps Lock key state (using the <a href="#Slider">toggle switch</a> or a <a href="#Shortcut">shortcut key</a>), <em>and</em></li>
 <li>Optionally suppresses Caps Lock key presses (to maintain the current state).</li>
 </ul>
 <p>This may be useful if you have a faulty keyboard, to work-around Caps Lock key problems including:</p>
@@ -349,7 +353,7 @@ code {
 <li>toggling itself at random intervals.</li>
 </ul>
 <h2>Main Window <a id="MainWindow"></a></h2>
-<h3>Caps Lock State Slider <a id="Slider"></a></h3>
+<h3>Caps Lock Toggle Switch <a id="Slider"></a></h3>
 <p>This control shows either state of the Caps Lock key:</p>
 <ol>
 <li><img src="Slider_CapsLock-Inactive.png" title="Caps Lock inactive" /> Caps Lock <strong>inactive</strong>; press or slide to activate, <em>or</em></li>
@@ -392,6 +396,9 @@ code {
 <h3>Close <a id="CloseSettings"></a></h3>
 <p>Press the '<strong>Close</strong>' button to hide the settings window. </p>
 <p>Any setting change is automatically applied and stored upon selecting the new setting.</p>
+<h2>Source Code <a id="SourceCode"></a></h2>
+<p>The code for this app is maintained at <a href="https://github.com/computingman/CapsKey">www.github.com/computingman/CapsKey</a>.</p>
+<p>The <a href="#Slider">Caps Lock Toggle Switch</a> uses code from <a href="https://github.com/ejensen/toggle-switch-control">www.github.com/ejensen/toggle-switch-control</a>.</p>
 
 </body>
 </html>

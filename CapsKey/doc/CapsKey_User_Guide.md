@@ -15,12 +15,15 @@ code {
 	border: 1px solid #46575f;
 	background-color: black;
 }
+ol ol {
+	margin-top: 2px;
+}
 </style>
 
 ## Contents
 0. [Overview](#Overview)
 0. [Main Window](#MainWindow)
-   0. [Caps Lock State Slider](#Slider)
+   0. [Caps Lock Toggle Switch](#Slider)
    0. [Drag / Move](#DragHandle)
    0. [Help](#Help)
    0. [Minimise](#Minimise)
@@ -33,6 +36,7 @@ code {
    0. [Shortcut](#Shortcut)
    0. [View Log File](#ViewLogFile)
    0. [Close](#CloseSettings)
+0. [Source Code](#SourceCode)
 
 ## Overview <a id="Overview"></a>
 ![](Main_window.png "CapsKey main window")
@@ -40,7 +44,7 @@ code {
 This little Windows app:
 
 - Displays the current state of the Caps Lock key (active / inactive),
-- Toggles the Caps Lock key state (using the [slider](#Slider) or a [shortcut key](#Shortcut)), *and*
+- Toggles the Caps Lock key state (using the [toggle switch](#Slider) or a [shortcut key](#Shortcut)), *and*
 - Optionally suppresses Caps Lock key presses (to maintain the current state).
 
 This may be useful if you have a faulty keyboard, to work-around Caps Lock key problems including:
@@ -51,7 +55,7 @@ This may be useful if you have a faulty keyboard, to work-around Caps Lock key p
 
 ## Main Window <a id="MainWindow"></a>
 
-### Caps Lock State Slider <a id="Slider"></a>
+### Caps Lock Toggle Switch <a id="Slider"></a>
 This control shows either state of the Caps Lock key:
 
 0. ![](Slider_CapsLock-Inactive.png "Caps Lock inactive") Caps Lock **inactive**; press or slide to activate, *or*
@@ -118,3 +122,8 @@ Log files may be useful to the developer in troubleshooting any problem that you
 Press the '**Close**' button to hide the settings window. 
 
 Any setting change is automatically applied and stored upon selecting the new setting.
+
+## Source Code <a id="SourceCode"></a>
+The code for this app is maintained at [www.github.com/computingman/CapsKey](https://github.com/computingman/CapsKey).
+
+The [Caps Lock Toggle Switch](#Slider) uses code from [www.github.com/ejensen/toggle-switch-control](https://github.com/ejensen/toggle-switch-control).
